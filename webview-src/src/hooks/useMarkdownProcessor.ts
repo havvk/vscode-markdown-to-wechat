@@ -15,6 +15,7 @@ import {
   remarkNumberedHeadings,
   rehypeImageTransformer,
   rehypeLinkToReference,
+  rehypeFixBrokenSection,
 } from '../plugins'
 
 export function useMarkdownProcessor(
@@ -89,6 +90,7 @@ export function useMarkdownProcessor(
           .use(settings.enableReferenceLinks ? rehypeLinkToReference : () => (tree) => tree)
           .use(rehypeHighlight) // 添加代码高亮处理
           .use(rehypeApplyStyles(mergedThemeStyles)) // 应用内联样式，包括代码高亮的内联样式
+          .use(rehypeFixBrokenSection) // 应用我们的最终修复插件
           .use(rehypeStringify, { allowDangerousHtml: true })
           .process(markdown)
 
